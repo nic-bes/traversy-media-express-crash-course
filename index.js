@@ -4,10 +4,9 @@ const path = require('path');
 //init express
 const app = express();
 
-//Create a route
-app.get('/', (req, res) => {
-    res.sendfile(path.join(__dirname, 'public', 'index.html'))
-});
+//Set a static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // When we deploy the server might not run it on 5000, it will have the port number in an environment variable 
 const PORT = process.env.PORT || 5000;
