@@ -1,0 +1,26 @@
+{
+  "name": "traversy-media-express-crash-course",
+  "version": "1.0.0",
+  "description": "Express JavaScript introduction",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "express-js-crash-course"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "NB",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
