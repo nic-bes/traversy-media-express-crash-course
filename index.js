@@ -2,19 +2,13 @@ const express = require('express');
 //bring in node js path module
 const path = require('path');
 const moment = require('moment');
+const logger = require('./middleware/logger')
 const members = require('./Members');
 
 //init express
 const app = express();
 
-//Create a simple middleware function
-const logger = (req, res, next) => {
-    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}: ${moment().format()}`);
-    next();
-};
-
 //Initialize the middleware
-
 app.use(logger);
 
 //Create a new route, this route gets all members
