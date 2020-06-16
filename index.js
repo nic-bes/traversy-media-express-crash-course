@@ -1,11 +1,12 @@
 const express = require('express');
-
+//bring in node js path module
+const path = require('path');
 //init express
 const app = express();
 
 //Create a route
 app.get('/', (req, res) => {
-    res.send('<h1>Hello World!!</h1>')
+    res.sendfile(path.join(__dirname, 'public', 'index.html'))
 });
 
 // When we deploy the server might not run it on 5000, it will have the port number in an environment variable 
