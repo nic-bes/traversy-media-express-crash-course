@@ -1,18 +1,27 @@
 const express = require('express');
 //bring in node js path module
 const path = require('path');
-//init express
-const app = express();
-//Add const to link to Members.js 
+const moment = require('moment');
 const members = require('./Members');
 
+//init express
+const app = express();
+
+//Create a simple middleware function
+const logger = (req, res, next) => {
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}: ${moment().format()}`);
+    next();
+};
+
+//Initialize the middleware
+
+app.use(logger);
+
 //Create a new route, this route gets all members
-app.get('/api/members', (req, res) =>
-    res.json(members));
+app.get('/api/members', (req, res) => res.json(members));
 
 //Set a static folder
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 // When we deploy the server might not run it on 5000, it will have the port number in an environment variable 
 const PORT = process.env.PORT || 5000;
