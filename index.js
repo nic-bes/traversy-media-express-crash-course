@@ -1,7 +1,6 @@
 const express = require('express');
 //bring in node js path module
 const path = require('path');
-const moment = require('moment');
 const logger = require('./middleware/logger')
 const members = require('./Members');
 
@@ -9,7 +8,17 @@ const members = require('./Members');
 const app = express();
 
 //Initialize the middleware
-app.use(logger);
+//app.use(logger);
+
+//Get Single Member
+app.get('/api/members/:id', (req, res) => {
+    const found = members.some(member => member.id === parseInt(req.params.id));
+    if (found) {
+        res.json(members.filter(member => member.id === parseInt(req.params.id)));
+    } else {
+        res.status(400).json({ msg: `No members with the id of ${req.params.id}` })
+    }
+});
 
 //Create a new route, this route gets all members
 app.get('/api/members', (req, res) => res.json(members));
