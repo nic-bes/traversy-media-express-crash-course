@@ -29,6 +29,7 @@ router.post('/', (req, res) => {
     }
     members.push(newMember);
     res.json(members);
+    //res.redirect('/'); comment out the res.json in line above to demonstrate form use, but stops API from working
 });
 
 //Update Member
