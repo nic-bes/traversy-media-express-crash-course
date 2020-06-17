@@ -2,7 +2,6 @@ const express = require('express');
 //bring in node js path module
 const path = require('path');
 const logger = require('./middleware/logger')
-const members = require('./Members');
 
 //init express
 const app = express();
@@ -10,21 +9,16 @@ const app = express();
 //Initialize the middleware
 //app.use(logger);
 
-//Get Single Member
-app.get('/api/members/:id', (req, res) => {
-    const found = members.some(member => member.id === parseInt(req.params.id));
-    if (found) {
-        res.json(members.filter(member => member.id === parseInt(req.params.id)));
-    } else {
-        res.status(400).json({ msg: `No members with the id of ${req.params.id}` })
-    }
-});
-
-//Create a new route, this route gets all members
-app.get('/api/members', (req, res) => res.json(members));
+//Body Parser Middleware - will allow us to handle raw json
+app.use(express.json());
+//To handle form submissions
+app.use(express.urlencoded({ extended: false }));
 
 //Set a static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Members API Routes
+app.use('/api/members', require('./routes/api/members'))
 
 // When we deploy the server might not run it on 5000, it will have the port number in an environment variable 
 const PORT = process.env.PORT || 5000;
